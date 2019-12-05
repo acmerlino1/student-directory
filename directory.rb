@@ -1,4 +1,18 @@
 def input_students
+  months = {
+    "january" => :january,
+    "february" => :february,
+    "march" => :march,
+    "april" => :april,
+    "may" => :may,
+    "june" => :june,
+    "july" => :july,
+    "august" => :august,
+    "september" => :september,
+    "october" => :october,
+    "november" => :november,
+    "december" => :december
+  }
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # create an empty array
@@ -8,10 +22,18 @@ def input_students
     name = gets.chomp
     # while the name is not empty, repeat this code
     if !name.empty?
-      students << {name: name, cohort: :november}
-      puts "Now we have #{students.count} students"
+      puts "Please enter the students cohort"
+      cohort = gets.chomp
+      if cohort.empty?
+        cohort = "november"
+      elsif months[cohort] == nil
+        puts "There seems to be a spelling mistake, please re-enter cohort"
+        cohort = gets.chomp
+      end
+        students << {name: name, cohort: months[cohort]}
+        puts "Now we have #{students.count} students"
       # get another name from the user
-    else
+    elsif name.empty?
       break
     end
   end
