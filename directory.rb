@@ -1,4 +1,4 @@
-def input_students
+def cohort
   months = {
     "january" => :january,
     "february" => :february,
@@ -13,31 +13,36 @@ def input_students
     "november" => :november,
     "december" => :december
   }
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+
+  puts "Please enter the students cohort"
+  while true do
+    cohort = gets.chomp
+    if cohort.empty?
+      cohort = "november"
+    elsif months[cohort] == nil
+      puts "There seems to be a spelling mistake, please re-enter cohort"
+      next
+    end
+    return months[cohort]
+  end
+end
+
+def input_students
   # create an empty array
   students = []
+  # while the name is not empty, repeat this code
   while true do
+    puts "Please enter the names of the students"
+    puts "To finish, just hit return twice"
     # get the first name
     name = gets.chomp
-    # while the name is not empty, repeat this code
-    if !name.empty?
-      puts "Please enter the students cohort"
-      cohort = gets.chomp
-      if cohort.empty?
-        cohort = "november"
-      elsif months[cohort] == nil
-        puts "There seems to be a spelling mistake, please re-enter cohort"
-        cohort = gets.chomp
-      end
-        students << {name: name, cohort: months[cohort]}
-        puts "Now we have #{students.count} students"
-      # get another name from the user
-    elsif name.empty?
+    if name.empty?
       break
     end
+    c = cohort
+    students << {name: name, cohort: c}
+    puts "Now we have #{students.count} students"
   end
-  # return the array of students
   students
 end
 
@@ -47,10 +52,19 @@ def print_header
 end
 
 def print(students)
-  student_index = 0
-  while student_index < students.length
-    puts "#{student_index+1}. #{students[student_index][:name]} (#{students[student_index][:cohort]} cohort)".center(100)
-    student_index += 1
+  sort_by_cohort = {}
+  students.each do |student|
+    cohort = student[:cohort]
+    name = student[:name]
+
+    if sort_by_cohort[cohort] == nil
+      sort_by_cohort[cohort] = []
+    end
+
+      sort_by_cohort[cohort].push(name)
+  end
+  sort_by_cohort.each do |k,v|
+    puts "Cohort for #{k}: #{v.join(" ")}"
   end
 end
 
