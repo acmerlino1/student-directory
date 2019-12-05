@@ -8,15 +8,7 @@ def input_students
     name = gets.chomp
     # while the name is not empty, repeat this code
     if !name.empty?
-      puts "What is this students hobby?"
-      hobby = gets.chomp
-      puts "In which country were they born?"
-      birth_place = gets.chomp
-      puts "How tall are they (metres)?"
-      height = gets.chomp
-      # add the student hash to the array
-      students << {name: name, cohort: :november, hobby: hobby,
-        birth_place: birth_place, height: height}
+      students << {name: name, cohort: :november}
       puts "Now we have #{students.count} students"
       # get another name from the user
     else
@@ -35,10 +27,7 @@ end
 def print(students)
   student_index = 0
   while student_index < students.length
-    item = students[student_index]
-    puts "#{student_index+1}. #{students[student_index][:name]}, favourite hobby is
-    #{students[student_index][:hobby]}, was born in #{students[student_index][:birth_place]}
-    and is #{students[student_index][:height]}m tall (#{students[student_index][:cohort]} cohort)"
+    puts "#{student_index+1}. #{students[student_index][:name]} (#{students[student_index][:cohort]} cohort)".center(100)
     student_index += 1
   end
 end
