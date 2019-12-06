@@ -1,27 +1,34 @@
+@students = []
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print
+  print_footer
+end
+
+def process(selection)
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
+  end
+end
+
 def interactive_menu
-  students = []
   loop do
-    # 1. print the menu and ask the user what to do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    # 2. read the input and save it into a variable
-    selection = gets.chomp
-    # 3. do what the user has asked
-    case selection
-      when "1"
-        # input the input_students
-        students = input_students
-      when "2"
-        # show the input_students
-        print_header
-        print(students)
-        print_footer(students)
-      when "9"
-        exit # this will cause the program to terminate
-      else
-        puts "I don't know what you meant, try again"
-    end
+    print_menu
+    process(gets.chomp)
   end
 end
 
@@ -54,8 +61,6 @@ def cohort
 end
 
 def input_students
-  # create an empty array
-  students = []
   # while the name is not empty, repeat this code
   while true do
     puts "Please enter the names of the students"
@@ -66,14 +71,13 @@ def input_students
       break
     end
     c = cohort
-    students << {name: name, cohort: c}
-    if students.count == 1
-      puts "Now we have #{students.count} student"
+    @students << {name: name, cohort: c}
+    if @students.count == 1
+      puts "Now we have #{@students.count} student"
     else
-      puts "Now we have #{students.count} students"
+      puts "Now we have #{@students.count} students"
     end
   end
-  students
 end
 
 def print_header
@@ -81,12 +85,12 @@ def print_header
   puts "-------------"
 end
 
-def print(students)
-  if students.empty?
+def print
+  if @students == nil
     puts "There are no students enrolled."
   end
   sort_by_cohort = {}
-  students.each do |student|
+  @students.each do |student|
     cohort = student[:cohort]
     name = student[:name]
 
@@ -101,9 +105,9 @@ def print(students)
   end
 end
 
-def print_footer(students)
-  if !students.empty?
-    puts "Overall, we have #{students.count} great students"
+def print_footer
+  if !@students.empty?
+    puts "Overall, we have #{@students.count} great students"
   end
 end
 
