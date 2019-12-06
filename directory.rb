@@ -13,7 +13,6 @@ def cohort
     "november" => :november,
     "december" => :december
   }
-
   puts "Please enter the students cohort"
   while true do
     cohort = gets.strip
@@ -56,6 +55,9 @@ def print_header
 end
 
 def print(students)
+  if students.empty?
+    puts "There are no students enrolled."
+  end
   sort_by_cohort = {}
   students.each do |student|
     cohort = student[:cohort]
@@ -73,7 +75,9 @@ def print(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  if !students.empty?
+    puts "Overall, we have #{students.count} great students"
+  end
 end
 
 students = input_students
