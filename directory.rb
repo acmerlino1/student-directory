@@ -152,5 +152,9 @@ def print_footer
   end
 end
 
-try_load_students
+if ARGV.empty?
+load_students
+else
+  try_load_students
+end
 interactive_menu
