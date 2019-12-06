@@ -1,5 +1,9 @@
 @students = []
 
+def add_students(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
 def try_load_students
   filename = ARGV.first # first rgument from the command line
   return if filename.nil? # get out of the method if it isn't given
@@ -16,7 +20,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students(name, cohort)
   end
   file.close
 end
@@ -42,8 +46,7 @@ def input_students
     if name.empty?
       break
     end
-    c = cohort
-    @students << {name: name, cohort: c}
+    add_students(name, cohort)
     if @students.count == 1
       puts "Now we have #{@students.count} student"
     else
@@ -107,7 +110,7 @@ def cohort
   }
   puts "Please enter the students cohort"
   while true do
-    cohort = STDIN.gets.strip
+    cohort = STDIN.gets.chomp
     if cohort.empty?
       cohort = "november"
     elsif months[cohort] == nil
