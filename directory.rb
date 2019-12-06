@@ -6,7 +6,7 @@ end
 
 def try_load_students
   filename = ARGV.first # first rgument from the command line
-  return if filename.nil? # get out of the method if it isn't given  
+  return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
@@ -75,14 +75,19 @@ end
 def process(selection)
   case selection
     when "1"
+      puts "Option 1 was selected successfully"
       input_students
     when "2"
+      puts "Option 2 was selected successfully"
       show_students
     when "3"
+      puts "Option 3 was selected successfully"
       save_students
     when "4"
+      puts "Option 4 was selected successfully"
       load_students
     when "9"
+      puts "Option 9 was selected successfully"
       exit # this will cause the program to terminate
     else
       puts "I don't know what you meant, try again"
