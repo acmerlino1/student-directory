@@ -6,7 +6,7 @@ end
 
 def try_load_students
   filename = ARGV.first # first rgument from the command line
-  return if filename.nil? # get out of the method if it isn't given
+  return if filename.nil? # get out of the method if it isn't given  
   if File.exists?(filename) # if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
@@ -41,17 +41,13 @@ def input_students
   while true do
     puts "Please enter the names of the students"
     puts "To finish, just hit return twice"
-    # get the first name
     name = STDIN.gets.chomp
     if name.empty?
       break
     end
     add_students(name, cohort)
-    if @students.count == 1
-      puts "Now we have #{@students.count} student"
-    else
-      puts "Now we have #{@students.count} students"
-    end
+    puts @students.count ==1 ? "Now we have #{@students.count}
+    student" : "Now we have #{@students.count} students"
   end
 end
 
@@ -127,22 +123,8 @@ def print_header
 end
 
 def print_students_list
-  if @students == nil
-    puts "There are no students enrolled."
-  end
-  sort_by_cohort = {}
   @students.each do |student|
-    cohort = student[:cohort]
-    name = student[:name]
-
-    if sort_by_cohort[cohort] == nil
-      sort_by_cohort[cohort] = []
-    end
-
-      sort_by_cohort[cohort].push(name)
-  end
-  sort_by_cohort.each do |k,v|
-    puts "Cohort for #{k}: #{v.join(", ")}"
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
