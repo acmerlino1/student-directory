@@ -16,7 +16,7 @@ def cohort
 
   puts "Please enter the students cohort"
   while true do
-    cohort = gets.chomp
+    cohort = gets.strip
     if cohort.empty?
       cohort = "november"
     elsif months[cohort] == nil
@@ -35,13 +35,17 @@ def input_students
     puts "Please enter the names of the students"
     puts "To finish, just hit return twice"
     # get the first name
-    name = gets.chomp
+    name = gets.strip
     if name.empty?
       break
     end
     c = cohort
     students << {name: name, cohort: c}
-    puts "Now we have #{students.count} students"
+    if students.count == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
   end
   students
 end
@@ -64,7 +68,7 @@ def print(students)
       sort_by_cohort[cohort].push(name)
   end
   sort_by_cohort.each do |k,v|
-    puts "Cohort for #{k}: #{v.join(" ")}"
+    puts "Cohort for #{k}: #{v.join(", ")}"
   end
 end
 
