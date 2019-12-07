@@ -4,8 +4,7 @@ def add_students(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
-def try_load_students
-  filename = ARGV.first # first rgument from the command line
+def try_load_students(filename)
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
@@ -27,7 +26,9 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open("students.csv", "w")
+  puts "which file do you want to save the students to?"
+  filename = gets.chomp
+  file = File.open(filename, "w")
   # iterate over the array of save_students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -61,8 +62,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list of students"
+  puts "4. Load the list from a file"
   puts "9. Exit"
 end
 
@@ -85,7 +86,9 @@ def process(selection)
       save_students
     when "4"
       puts "Option 4 was selected successfully"
-      load_students
+      puts "which file do you want to load the students from?"
+      filename = gets.chomp
+      try_load_students(filename)
     when "9"
       puts "Option 9 was selected successfully"
       exit # this will cause the program to terminate
@@ -140,8 +143,8 @@ def print_footer
 end
 
 if ARGV.empty?
-load_students
+  load_students
 else
-  try_load_students
+  try_load_students(ARGV.first)
 end
 interactive_menu
